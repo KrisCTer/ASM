@@ -222,16 +222,94 @@ namespace ASM
         {
             panelNumber.Invalidate();
         }
+        //private void compile()
+        //{
+        //    string gppPath = @"C:\MinGW\bin\gcc.exe";
+        //    string cppCode = richTextBox.Text;
+        //    if (!cppCode.EndsWith(Environment.NewLine))
+        //    {
+        //        cppCode += Environment.NewLine;
+        //    }
+        //    string tempFilePath = Path.Combine(Path.GetTempPath(), "program.cpp");
+        //    File.WriteAllText(tempFilePath, cppCode);
+        //    if (!File.Exists(gppPath))
+        //    {
+
+        //        MessageBox.Show("Compiler not found at: " + gppPath);
+        //        return;
+        //    }
+
+        //    string exeFilePath = Path.Combine(Path.GetTempPath(), "program.exe");
+        //    var compileProcess = new Process
+        //    {
+        //        StartInfo = new ProcessStartInfo
+        //        {
+        //            FileName = gppPath,
+        //            Arguments = $"-o \"{exeFilePath}\" \"{tempFilePath}\"",
+        //            RedirectStandardOutput = true,
+        //            RedirectStandardError = true,
+        //            UseShellExecute = false,
+        //            CreateNoWindow = true
+        //        }
+        //    };
+
+        //    compileProcess.Start();
+        //    string compileOutput = compileProcess.StandardOutput.ReadToEnd();
+        //    string compileError = compileProcess.StandardError.ReadToEnd();
+        //    compileProcess.WaitForExit();
+        //    if (!string.IsNullOrEmpty(compileError))
+        //    {
+        //        status.ForeColor = Color.Red;
+        //        status.Text = $"Compile Error:\n{compileError}";
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        status.ForeColor = Color.Green;
+        //        status.Text = "Compilation succeeded";
+        //        return;
+        //    }
+
+        //}
+        //private void runFile()
+        //{
+        //    string exeFilePath = Path.Combine(Path.GetTempPath(), "program.exe");
+        //    if (!File.Exists(exeFilePath))
+        //    {
+        //        MessageBox.Show("Executable file not found: " + exeFilePath);
+        //        return;
+        //    }
+
+        //    var runProcess = new Process
+        //    {
+        //        StartInfo = new ProcessStartInfo
+        //        {
+        //            FileName = exeFilePath,
+        //            RedirectStandardOutput = true,
+        //            RedirectStandardError = true,
+        //            UseShellExecute = false,
+        //            CreateNoWindow = true
+        //        }
+        //    };
+
+        //    runProcess.Start();
+        //    string programOutput = runProcess.StandardOutput.ReadToEnd();
+        //    string programError = runProcess.StandardError.ReadToEnd();
+        //    runProcess.WaitForExit();
+
+        //    status.Text = !string.IsNullOrEmpty(programError)
+        //        ? $"Runtime Error:\n{programError}"
+        //        : programOutput;
+        //}
         private void compile()
         {
-            string gppPath = @"C:\MinGW\bin\gcc.exe";
+            string gppPath = @"C:\MinGW\bin\g++.exe";
             string cppCode = richTextBox.Text;
-            string path = "C:\\Users\\phucl\\Downloads\\ASM\\Save";
             if (!cppCode.EndsWith(Environment.NewLine))
             {
                 cppCode += Environment.NewLine;
             }
-            string tempFilePath = Path.Combine(path, "program.cpp");
+            string tempFilePath = Path.Combine(Path.GetTempPath(), "program.cpp");
             File.WriteAllText(tempFilePath, cppCode);
             if (!File.Exists(gppPath))
             {
@@ -240,7 +318,7 @@ namespace ASM
                 return;
             }
 
-            string exeFilePath = Path.Combine(path, "program.exe");
+            string exeFilePath = Path.Combine(Path.GetTempPath(), "program.exe");
             var compileProcess = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -274,8 +352,7 @@ namespace ASM
         }
         private void runFile()
         {
-            string path = "C:\\Users\\phucl\\Downloads\\ASM\\Save";
-            string exeFilePath = Path.Combine(path, "program.exe");
+            string exeFilePath = Path.Combine(Path.GetTempPath(), "program.exe");
             if (!File.Exists(exeFilePath))
             {
                 MessageBox.Show("Executable file not found: " + exeFilePath);
@@ -303,7 +380,6 @@ namespace ASM
                 ? $"Runtime Error:\n{programError}"
                 : programOutput;
         }
-
         private void compileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             compile();
